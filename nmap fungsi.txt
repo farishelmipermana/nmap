@@ -1,0 +1,69 @@
+// Pemindaian single host
+$ nmap <hostname>
+
+// Pemindaian multiple host
+$ nmap <hostname1> <hostname2> <hostname3>
+
+// Stealt scan
+$ nmap -sS <target>
+
+// Discovery scan
+$ nmap -sP <target>
+
+// Full scan 
+$ nmap -A <target>
+
+// Port scan
+$ nmap -p <ports> <target>
+
+// Meningkatkan Verbosity scan
+$ nmap -v <target>
+
+// Pemindaian cepat terhadap host
+$ nmap -F <target>
+
+// Port terbuka
+$ nmap --open <target>
+
+// Display network interface dan route
+$ nmap --iflist <target>
+
+// Menetapkan pengaturan waktu
+$ nmap --top-ports 10 -T4 <target>
+
+// Deteksi OS
+$ nmap -O <target>
+
+// Deteksi OS agresif
+$ nmap -O --osscan-guess <target>
+
+// Deteksi Layanan dan informasi Versi
+$ nmap -sV <target>
+
+// Fingerprint OS
+$ nmap -sT <target>
+
+// Pindai remote host menggunakna scrip
+$ sudo nmap -sZ --top-ports 20 -T4 192.168.1.1/24
+
+// Menentukan route ke remote host
+$ sudo nmap --traceroute <target>
+
+// Nonaktifkan reverse DNS resolution untuk semua host
+$ nmap -n <target>
+
+// Menggunakan ip address umpan
+$ nmap --top-ports 10 -D10.1.1.2, 10.1.1.4, 10.1.1.6 192.168.1.1
+
+// Menggunakan skrip NSE khusus
+$ nmap --script=whois-ip.nse scanme.nmap.org
+
+// Menggunakan beberapa kategori skrip
+$ nmap --script discovery,brute 192.168.1.1
+
+// Menggunakan wildcard untuk seleksi skrip
+$ nmap --script "ssh *" 192.168.1.1
+
+// Mengirimkan hasil feed pemindaian nmap ke nikto
+$ nmap --top-ports 10 192.168.1.1/24 -oG - | /path/of/nikto.pl -h -
+
