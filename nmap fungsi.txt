@@ -34,6 +34,9 @@ $ nmap --top-ports 10 -T4 <target>
 // Deteksi OS
 $ nmap -O <target>
 
+//script sql-injection
+$ nmap -T4 -sV -script=http-sql-injection <target> -v
+
 // Deteksi OS agresif
 $ nmap -O --osscan-guess <target>
 
