@@ -1,0 +1,8 @@
+Example Usage
+nmap --script=mysql-brute <target>
+
+Script Output
+3306/tcp open  mysql
+| mysql-brute:
+|   Accounts
+|     root:root - Valid credentials
