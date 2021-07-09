@@ -1,0 +1,4 @@
+1. nmap script vuln
+nmap farishelmi.com --script vuln
+
+2.
